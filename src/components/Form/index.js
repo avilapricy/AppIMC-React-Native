@@ -19,13 +19,23 @@ export default function Form() {
     const [imc, setImc] = useState(null);
     const [textButton, setTextButton] = useState('Calcular');
     const [errorMessage, setErrorMessage] = useState(null);
-    const [imcList, setImcList] = useState([]);
+    const [textResult, setTextResult] = useState('')  
 
     function imcCalculator() {
         let heightFormat = height.replace(',', '.');
         let totalImc = (weight / (heightFormat * heightFormat)).toFixed(2);
-        setImcList((arr) => [...arr, { id: new Date().getTime(), imc: totalImc }]);
         setImc(totalImc);
+
+        if (totalImc < 18.5) {
+            setTextResult('Abaixo do peso ideal.')
+          } else if (totalImc >= 18.5 && totalImc < 25) {
+            setTextResult('Peso ideal.')
+          } else if (totalImc >= 25 && totalImc < 30) {
+            setTextResult('Sobrepeso.')
+          } else {
+            setTextResult('Obesidade.')
+          }
+
     }
 
     function varificationImc() {
@@ -33,6 +43,18 @@ export default function Form() {
             setErrorMessage('*Campo obrigatório')
             Vibration.vibrate();
         }
+    }
+
+    function verificationResultImc() {
+        if (imc < 18.5) {
+            mensagem = 'Abaixo do peso ideal.';
+          } else if (imc >= 18.5 && imc < 25) {
+            mensagem = 'Peso ideal.';
+          } else if (imc >= 25 && imc < 30) {
+            mensagem = 'Sobrepeso.';
+          } else {
+            mensagem = 'Obesidade.';
+          }
     }
 
     function validationImc() {
@@ -87,6 +109,7 @@ export default function Form() {
                     <ResultImc
                         messageResultImc={messageImc}
                         resultImc={imc}
+                        responseImcUser={textResult}
                     />
                     <TouchableOpacity
                         style={styles.buttonCalculator}
@@ -96,20 +119,6 @@ export default function Form() {
                     </TouchableOpacity>
                 </View>
             }
-            <FlatList
-                style={styles.listImcs}
-                data={imcList.reverse()}
-                showsVerticalScrollIndicator={false}
-                renderItem={({ item }) => {
-                    return (
-                        <Text style={styles.resultImcItem}>
-                            <Text style={styles.textResultItemList}>Resultado IMC = </Text>
-                            {item.imc}
-                        </Text>
-                    )
-                }}
-                keyExtractor={(item) => { item.id }}
-            />
         </View>
     );
 }
