@@ -10,7 +10,16 @@ import {
     FlatList
 } from "react-native";
 import ResultImc from "./ResultImc";
-import styles from "./style";
+import {
+    FormContainer,
+    FormContent,
+    FormLabel,
+    InputText,
+    ButtonCalculator,
+    TextButtonCalculator,
+    ErrorMessage,
+    ResultImcContent
+} from "./style";
 
 export default function Form() {
     const [height, setHeight] = useState(null);
@@ -19,7 +28,7 @@ export default function Form() {
     const [imc, setImc] = useState(null);
     const [textButton, setTextButton] = useState('Calcular');
     const [errorMessage, setErrorMessage] = useState(null);
-    const [textResult, setTextResult] = useState('')  
+    const [textResult, setTextResult] = useState('')
 
     function imcCalculator() {
         let heightFormat = height.replace(',', '.');
@@ -28,13 +37,13 @@ export default function Form() {
 
         if (totalImc < 18.5) {
             setTextResult('Abaixo do peso ideal.')
-          } else if (totalImc >= 18.5 && totalImc < 25) {
+        } else if (totalImc >= 18.5 && totalImc < 25) {
             setTextResult('Peso ideal.')
-          } else if (totalImc >= 25 && totalImc < 30) {
+        } else if (totalImc >= 25 && totalImc < 30) {
             setTextResult('Sobrepeso.')
-          } else {
+        } else {
             setTextResult('Obesidade.')
-          }
+        }
 
     }
 
@@ -48,13 +57,13 @@ export default function Form() {
     function verificationResultImc() {
         if (imc < 18.5) {
             mensagem = 'Abaixo do peso ideal.';
-          } else if (imc >= 18.5 && imc < 25) {
+        } else if (imc >= 18.5 && imc < 25) {
             mensagem = 'Peso ideal.';
-          } else if (imc >= 25 && imc < 30) {
+        } else if (imc >= 25 && imc < 30) {
             mensagem = 'Sobrepeso.';
-          } else {
+        } else {
             mensagem = 'Obesidade.';
-          }
+        }
     }
 
     function validationImc() {
@@ -75,50 +84,46 @@ export default function Form() {
 
 
     return (
-        <View style={styles.formContext}>
+        <FormContainer>
             {imc == null ?
-                <Pressable onPress={Keyboard.dismiss} style={styles.form}>
-                    <Text style={styles.formLabel}>Altura</Text>
-                    <Text style={styles.errorMessage}>{errorMessage}</Text>
-                    <TextInput
-                        style={styles.input}
+                <FormContent onPress={Keyboard.dismiss}>
+                    <FormLabel>Altura</FormLabel>
+                    <ErrorMessage>{errorMessage}</ErrorMessage>
+                    <InputText
                         placeholder="Ex. 1.72"
                         keyboardType="numeric"
                         onChangeText={setHeight}
                         value={height}
                     />
 
-                    <Text style={styles.formLabel}>Peso</Text>
-                    <Text style={styles.errorMessage}>{errorMessage}</Text>
-                    <TextInput
-                        style={styles.input}
+                    <FormLabel>Peso</FormLabel>
+                    <ErrorMessage>{errorMessage}</ErrorMessage>
+                    <InputText
                         placeholder="Ex. 75.36"
                         keyboardType="numeric"
                         onChangeText={setWeight}
                         value={weight}
                     />
-                    <TouchableOpacity
-                        style={styles.buttonCalculator}
+                    <ButtonCalculator
                         onPress={() => validationImc()}
                     >
-                        <Text style={styles.textButtonCalculator}>{textButton}</Text>
-                    </TouchableOpacity>
-                </Pressable >
+                        <TextButtonCalculator>{textButton}</TextButtonCalculator>
+                    </ButtonCalculator>
+                </FormContent >
                 :
-                <View style={styles.exhibitionResultImc}>
+                <ResultImcContent>
                     <ResultImc
                         messageResultImc={messageImc}
                         resultImc={imc}
                         responseImcUser={textResult}
                     />
-                    <TouchableOpacity
-                        style={styles.buttonCalculator}
+                    <ButtonCalculator
                         onPress={() => validationImc()}
                     >
-                        <Text style={styles.textButtonCalculator}>{textButton}</Text>
-                    </TouchableOpacity>
-                </View>
+                        <TextButtonCalculator>{textButton}</TextButtonCalculator>
+                    </ButtonCalculator>
+                </ResultImcContent>
             }
-        </View>
+        </FormContainer>
     );
 }

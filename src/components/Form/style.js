@@ -1,70 +1,66 @@
-import { StyleSheet } from "react-native";
+import { styled } from "styled-components/native";
 
-const styles = StyleSheet.create({
-    formContext: {
-        backgroundColor: '#ffff',
-        alignItems: 'center',
-        borderTopLeftRadius: 30,
-        borderTopRightRadius: 30,
-        paddingTop: 30,
-        flex: 1,
-    },
-    form: {
-        width: '100%',
-        paddingTop: 20,
-    },
-    formLabel: {
-        color: '#000',
-        fontSize: 18,
-        paddingLeft: 20,
-    },
-    input: {
-        width: '90%',
-        borderRadius: 50,
-        backgroundColor:'#f6f6f6',
-        height: 40,
-        margin: 12,
-        paddingLeft: 10,
-    },
-    buttonCalculator: {
-        borderRadius: 50,
-        alignItems: 'center',
-        justifyContent: 'center',
-        width: '90%',
-        backgroundColor: '#ff0043',
-        paddingTop: 14,
-        paddingBottom: 14,
-        marginLeft: 12,
-        marginTop: 30,
-    },
-    textButtonCalculator: {
-        fontSize: 20,
-        color: '#fff',
-    },
-    errorMessage: {
-        fontSize: 12,
-        color: 'red',
-        fontWeight: 'bold',
-        paddingLeft: 20,
-    },
-    exhibitionResultImc: {
-        width: '100%',
-        height: '50%'
-    },
-    listImcs: {
-        marginTop: 20,
+export const FormContainer = styled.View`
+    background-color: ${props => props.theme.background};
+    align-items: center;
+    border-top-left-radius: 30;
+    border-top-right-radius: 30;
+    padding-top: 30;
+    flex: 1;
+`
 
-    },
-    resultImcItem: {
-        fontSize: 24,
-        color: 'red',
-        height: 50,
-        width: '100%',
-        paddingRight: 20
-    },
-    textResultItemList: {
-        fontSize: 16,
-    },
-})
+export const FormContent = styled.Pressable`
+    width: 100%;
+    padding-top: 20;
+`
 
-export default styles
+export const FormLabel = styled.Text`
+    color: ${props => props.theme.color};
+    font-size: 18;
+    padding-left: 20;
+    font-weight: bold;
+`
+
+export const InputText = styled.TextInput`
+    width: 90%;
+    border-radius: 50px;
+    background-color:#f6f6f6;
+    height: 40px;
+    margin: 12px;
+    padding-left: 10px;
+`
+
+export const ButtonCalculator = styled.TouchableOpacity`
+    border-radius: 50px;
+    align-items: center;
+    justify-content: center;
+    width: 90%;
+    background-color: #ff0043;
+    padding-top: 14px;
+    padding-bottom: 14px;
+    margin-left: 12px;
+    margin-top: 30px;
+`
+
+export const TextButtonCalculator = styled.Text`
+    font-size: 20px;
+    color: #fff;
+    font-weight: bold;
+`
+
+export const ErrorMessage = styled.Text`
+    font-size: 12px;
+    color: red;
+    font-weight: bold;
+    padding-left: 20px;
+`
+
+export const ResultImcContent = styled.View`
+    width: 100%;
+    height: 50%;
+`
+
+export const ResultImcItem = styled.View`
+    width: 100%;
+    height: 50%;
+`
